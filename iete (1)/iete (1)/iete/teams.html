@@ -1,0 +1,2128 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Meet the IETE KJSIT team — the architects behind Oscillations 2026 and all IETE student forum initiatives." />
+  <meta name="theme-color" content="#020508" />
+  <title>IETE KJSIT — The Team</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="dns-prefetch" href="https://i.pravatar.cc" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* ============ ROOT ============ */
+    :root {
+      --dark-bg: #020508;
+      --card-bg: #050a12;
+      --surface: #0a1628;
+      --primary: #00b4d8;
+      --primary-bright: #00f0ff;
+      --primary-dim: #006080;
+      --secondary: #ff00ff;
+      --secondary-dim: #9900cc;
+      --accent: #f0c040;
+      --text: #e0eaf5;
+      --text-muted: #6a8099;
+      --chip-frame: #1a3a5c;
+      --chip-glow: rgba(0, 240, 255, 0.35);
+      --trace: #0f2a44;
+      --trace-glow: #00b4d8;
+      --node-glow: rgba(0, 240, 255, 0.6);
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--dark-bg);
+      color: var(--text);
+      font-family: "Rajdhani", sans-serif;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* Custom cursor glow */
+    .cursor-glow {
+      position: fixed;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      background: radial-gradient(circle,
+          rgba(0, 180, 216, 0.06) 0%,
+          transparent 70%);
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
+
+    body:hover .cursor-glow {
+      opacity: 1;
+    }
+
+    /* ============ BACKGROUNDS ============ */
+    .pcb-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        radial-gradient(ellipse at 20% 20%,
+          rgba(0, 60, 120, 0.15),
+          transparent 60%),
+        radial-gradient(ellipse at 80% 80%,
+          rgba(0, 30, 80, 0.12),
+          transparent 60%),
+        radial-gradient(ellipse at 50% 50%,
+          rgba(0, 20, 60, 0.08),
+          transparent 80%);
+      transform: translateZ(0);
+    }
+
+    .pcb-grid {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image:
+        linear-gradient(rgba(0, 180, 216, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 180, 216, 0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      transform: translateZ(0);
+    }
+
+    /* Canvas particle network */
+    #particleCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      will-change: contents;
+    }
+
+
+
+    /* ============ SECTIONS ============ */
+    .section {
+      padding: 5rem 5% 6rem;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .section-header.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-label {
+      font-family: "Share Tech Mono", monospace;
+      font-size: 0.7rem;
+      color: var(--primary);
+      letter-spacing: 5px;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: 2px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 3px;
+      margin: 1.2rem auto 0;
+      background: linear-gradient(90deg,
+          var(--primary-bright),
+          var(--secondary));
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-divider::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.4);
+      animation: shimmer 2.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% {
+        left: -100%;
+      }
+
+      100% {
+        left: 200%;
+      }
+    }
+
+    /* Member count badge */
+    .section-count {
+      font-family: "Share Tech Mono", monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 3px;
+      margin-top: 0.8rem;
+    }
+
+    /* ============ CHIP GRID ============ */
+    .chip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 5rem 4rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* ============ CHIP CARD ============ */
+    .chip-card {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+      transition:
+        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      /* 3D perspective container */
+      perspective: 800px;
+      contain: layout style;
+      will-change: transform, opacity;
+    }
+
+    .chip-card.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .circuit-traces {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* 3D tilt wrapper */
+    .processor-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
+    }
+
+    .processor {
+      position: relative;
+      width: 220px;
+      height: 270px;
+      z-index: 2;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .chip-card:hover .processor {
+      filter: drop-shadow(0 0 30px rgba(0, 240, 255, 0.15));
+    }
+
+    .processor-frame {
+      position: absolute;
+      inset: 0;
+      border: 3px solid var(--chip-frame);
+      border-radius: 10px;
+      background: linear-gradient(165deg,
+          #060e1a 0%,
+          #0a1628 40%,
+          #081020 100%);
+      z-index: 1;
+      transition: all 0.5s;
+      overflow: hidden;
+    }
+
+    .chip-card:hover .processor-frame {
+      border-color: var(--primary);
+      box-shadow:
+        0 0 20px rgba(0, 240, 255, 0.15),
+        0 0 60px rgba(0, 240, 255, 0.05),
+        inset 0 0 30px rgba(0, 180, 216, 0.05);
+    }
+
+    /* Inner ring */
+    .processor-frame::before {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      border: 1px solid rgba(0, 180, 216, 0.06);
+      border-radius: 7px;
+      transition: border-color 0.5s;
+    }
+
+    .chip-card:hover .processor-frame::before {
+      border-color: rgba(0, 240, 255, 0.15);
+    }
+
+    /* Scan line */
+    .processor-frame::after {
+      content: "";
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg,
+          transparent 40%,
+          rgba(0, 240, 255, 0.03) 50%,
+          transparent 60%);
+      animation: scanLine 5s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes scanLine {
+      0% {
+        top: -100%;
+      }
+
+      100% {
+        top: 100%;
+      }
+    }
+
+    /* Corner accents */
+    .corner-accent {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    .chip-card:hover .corner-accent {
+      opacity: 1;
+    }
+
+    .corner-accent::before,
+    .corner-accent::after {
+      content: "";
+      position: absolute;
+      background: var(--primary-bright);
+    }
+
+    .corner-accent--tl {
+      top: 7px;
+      left: 7px;
+    }
+
+    .corner-accent--tl::before {
+      top: 0;
+      left: 0;
+      width: 12px;
+      height: 1px;
+    }
+
+    .corner-accent--tl::after {
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 12px;
+    }
+
+    .corner-accent--tr {
+      top: 7px;
+      right: 7px;
+    }
+
+    .corner-accent--tr::before {
+      top: 0;
+      right: 0;
+      width: 12px;
+      height: 1px;
+    }
+
+    .corner-accent--tr::after {
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 12px;
+    }
+
+    .corner-accent--bl {
+      bottom: 7px;
+      left: 7px;
+    }
+
+    .corner-accent--bl::before {
+      bottom: 0;
+      left: 0;
+      width: 12px;
+      height: 1px;
+    }
+
+    .corner-accent--bl::after {
+      bottom: 0;
+      left: 0;
+      width: 1px;
+      height: 12px;
+    }
+
+    .corner-accent--br {
+      bottom: 7px;
+      right: 7px;
+    }
+
+    .corner-accent--br::before {
+      bottom: 0;
+      right: 0;
+      width: 12px;
+      height: 1px;
+    }
+
+    .corner-accent--br::after {
+      bottom: 0;
+      right: 0;
+      width: 1px;
+      height: 12px;
+    }
+
+    /* Photo */
+    .processor-photo-wrap {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+
+    .processor-photo-border {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid var(--chip-frame);
+      transition: all 0.5s;
+      position: relative;
+    }
+
+    .chip-card:hover .processor-photo-border {
+      border-color: var(--primary-bright);
+      box-shadow:
+        0 0 15px rgba(0, 240, 255, 0.3),
+        0 0 40px rgba(0, 240, 255, 0.1);
+    }
+
+    /* Animated border gradient overlay */
+    .processor-photo-border::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 12px;
+      background: conic-gradient(from 0deg,
+          var(--primary-bright),
+          transparent,
+          transparent,
+          var(--secondary),
+          transparent,
+          transparent,
+          var(--primary-bright));
+      z-index: -1;
+      opacity: 0;
+      animation: rotateBorder 4s linear infinite;
+      transition: opacity 0.5s;
+    }
+
+    .chip-card:hover .processor-photo-border::before {
+      opacity: 1;
+    }
+
+    @keyframes rotateBorder {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .processor-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.3) brightness(0.85) contrast(1.1);
+      transition: filter 0.5s;
+    }
+
+    .chip-card:hover .processor-photo {
+      filter: saturate(1) brightness(1) contrast(1);
+    }
+
+    /* Info */
+    .processor-info {
+      position: absolute;
+      bottom: 18px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      z-index: 3;
+    }
+
+    .processor-name {
+      font-family: "Orbitron", sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--text);
+      margin-bottom: 4px;
+      transition: all 0.4s;
+    }
+
+    .chip-card:hover .processor-name {
+      text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+    }
+
+    .processor-position {
+      font-family: "Share Tech Mono", monospace;
+      font-size: 0.55rem;
+      color: var(--primary);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: all 0.4s;
+    }
+
+    .chip-card:hover .processor-position {
+      opacity: 1;
+    }
+
+    .processor-notch {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1.5px solid var(--chip-frame);
+      z-index: 4;
+      transition: all 0.4s;
+    }
+
+    .chip-card:hover .processor-notch {
+      border-color: var(--primary-bright);
+      box-shadow: 0 0 10px var(--chip-glow);
+    }
+
+    .processor-model {
+      position: absolute;
+      top: 9px;
+      right: 10px;
+      font-family: "Share Tech Mono", monospace;
+      font-size: 0.48rem;
+      color: var(--chip-frame);
+      letter-spacing: 1.5px;
+      z-index: 4;
+      transition: color 0.4s;
+    }
+
+    .chip-card:hover .processor-model {
+      color: var(--primary);
+    }
+
+    /* Horizontal detail line */
+    .processor-detail {
+      position: absolute;
+      z-index: 2;
+      opacity: 0.12;
+      transition: opacity 0.4s;
+    }
+
+    .chip-card:hover .processor-detail {
+      opacity: 0.3;
+    }
+
+    .processor-detail-top {
+      top: 172px;
+      left: 20px;
+      right: 20px;
+      height: 1px;
+      background: linear-gradient(90deg,
+          transparent,
+          var(--primary),
+          transparent);
+    }
+
+    /* ============ PINS ============ */
+    .chip-pins {
+      position: absolute;
+      z-index: 1;
+      display: flex;
+    }
+
+    .chip-pins-left {
+      left: -24px;
+      top: 50%;
+      transform: translateY(-50%);
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .chip-pins-right {
+      right: -24px;
+      top: 50%;
+      transform: translateY(-50%);
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .chip-pins-top {
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      gap: 9px;
+    }
+
+    .chip-pins-bottom {
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      gap: 9px;
+    }
+
+    .pin-h {
+      width: 24px;
+      height: 3px;
+      background: linear-gradient(90deg, #122840, #1e4a6a);
+      border-radius: 0.5px;
+      transition: all 0.4s;
+    }
+
+    .pin-vt {
+      width: 3px;
+      height: 20px;
+      background: linear-gradient(180deg, #122840, #1e4a6a);
+      border-radius: 0.5px;
+      transition: all 0.4s;
+    }
+
+    /* Sequential pin lighting */
+    .chip-card:hover .chip-pins-left .pin-h,
+    .chip-card:hover .chip-pins-right .pin-h {
+      background: linear-gradient(90deg, var(--primary), #50e0ff);
+      box-shadow: 0 0 10px var(--chip-glow);
+    }
+
+    .chip-card:hover .chip-pins-top .pin-vt,
+    .chip-card:hover .chip-pins-bottom .pin-vt {
+      background: linear-gradient(180deg, var(--primary), #50e0ff);
+      box-shadow: 0 0 10px var(--chip-glow);
+    }
+
+    /* Stagger pin transitions */
+    .chip-pins .pin-h:nth-child(1) {
+      transition-delay: 0s;
+    }
+
+    .chip-pins .pin-h:nth-child(2) {
+      transition-delay: 0.03s;
+    }
+
+    .chip-pins .pin-h:nth-child(3) {
+      transition-delay: 0.06s;
+    }
+
+    .chip-pins .pin-h:nth-child(4) {
+      transition-delay: 0.09s;
+    }
+
+    .chip-pins .pin-h:nth-child(5) {
+      transition-delay: 0.12s;
+    }
+
+    .chip-pins .pin-h:nth-child(6) {
+      transition-delay: 0.15s;
+    }
+
+    .chip-pins .pin-h:nth-child(7) {
+      transition-delay: 0.18s;
+    }
+
+    .chip-pins .pin-h:nth-child(8) {
+      transition-delay: 0.21s;
+    }
+
+    .chip-pins .pin-vt:nth-child(1) {
+      transition-delay: 0.02s;
+    }
+
+    .chip-pins .pin-vt:nth-child(2) {
+      transition-delay: 0.05s;
+    }
+
+    .chip-pins .pin-vt:nth-child(3) {
+      transition-delay: 0.08s;
+    }
+
+    .chip-pins .pin-vt:nth-child(4) {
+      transition-delay: 0.11s;
+    }
+
+    .chip-pins .pin-vt:nth-child(5) {
+      transition-delay: 0.14s;
+    }
+
+    .chip-pins .pin-vt:nth-child(6) {
+      transition-delay: 0.17s;
+    }
+
+    .chip-pins .pin-vt:nth-child(7) {
+      transition-delay: 0.2s;
+    }
+
+    /* ============ SVG TRACES ============ */
+    .trace-line {
+      stroke: var(--trace);
+      stroke-width: 1.5;
+      fill: none;
+      transition: all 0.5s;
+    }
+
+    .chip-card:hover .trace-line {
+      stroke: var(--trace-glow);
+      filter: drop-shadow(0 0 4px var(--chip-glow));
+    }
+
+    /* Electricity flow animation */
+    .trace-flow {
+      stroke: var(--primary-bright);
+      stroke-width: 2;
+      fill: none;
+      stroke-dasharray: 8 20;
+      stroke-dashoffset: 0;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    .chip-card:hover .trace-flow {
+      opacity: 0.7;
+      animation: electricFlow 1.2s linear infinite;
+    }
+
+    @keyframes electricFlow {
+      to {
+        stroke-dashoffset: -28;
+      }
+    }
+
+    .trace-node {
+      fill: var(--trace);
+      transition: all 0.5s;
+    }
+
+    .chip-card:hover .trace-node {
+      fill: var(--primary-bright);
+      filter: drop-shadow(0 0 8px var(--node-glow));
+    }
+
+    .trace-node-ring {
+      fill: none;
+      stroke: var(--trace);
+      stroke-width: 1;
+      transition: all 0.5s;
+    }
+
+    .chip-card:hover .trace-node-ring {
+      stroke: var(--primary-bright);
+      filter: drop-shadow(0 0 6px var(--node-glow));
+    }
+
+    .trace-component {
+      stroke: var(--trace);
+      stroke-width: 1;
+      fill: none;
+      transition: all 0.5s;
+    }
+
+    .chip-card:hover .trace-component {
+      stroke: rgba(0, 180, 216, 0.5);
+    }
+
+    @keyframes nodePulse {
+
+      0%,
+      100% {
+        opacity: 0.3;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .pulse-node {
+      animation: nodePulse 2.5s ease-in-out infinite;
+    }
+
+    /* Data stream floating text */
+    .data-stream {
+      position: absolute;
+      font-family: "Share Tech Mono", monospace;
+      font-size: 0.5rem;
+      color: rgba(0, 180, 216, 0.1);
+      pointer-events: none;
+      z-index: 0;
+      white-space: nowrap;
+      transition: color 0.5s;
+    }
+
+    .chip-card:hover .data-stream {
+      color: rgba(0, 240, 255, 0.15);
+    }
+
+    /* ============ FULL-SCREEN OVERLAY ============ */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      display: flex;
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0s 0.5s;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+      transition:
+        opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0s 0s;
+    }
+
+    .overlay-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(2, 5, 8, 0.95);
+      backdrop-filter: blur(30px) saturate(1.5);
+    }
+
+    /* Animated circuit grid in overlay */
+    .overlay-circuits {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .overlay-circuits .ot {
+      position: absolute;
+      background: var(--primary-bright);
+      opacity: 0;
+    }
+
+    .overlay-circuits .ot-h {
+      height: 1px;
+      width: 0;
+    }
+
+    .overlay-circuits .ot-v {
+      width: 1px;
+      height: 0;
+    }
+
+    .overlay.active .ot-h {
+      animation: expandH 0.8s ease forwards;
+    }
+
+    .overlay.active .ot-v {
+      animation: expandV 0.8s ease forwards;
+    }
+
+    @keyframes expandH {
+      to {
+        width: 100%;
+        opacity: 0.04;
+      }
+    }
+
+    @keyframes expandV {
+      to {
+        height: 100%;
+        opacity: 0.04;
+      }
+    }
+
+    /* Scan line overlay */
+    .overlay-scan {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.5s 0.2s;
+    }
+
+    .overlay.active .overlay-scan {
+      opacity: 1;
+    }
+
+    .overlay-scan::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      top: -2px;
+      left: 0;
+      background: linear-gradient(90deg,
+          transparent,
+          var(--primary-bright),
+          transparent);
+      animation: overlayScan 3s linear infinite;
+      opacity: 0.15;
+    }
+
+    @keyframes overlayScan {
+      0% {
+        top: -2px;
+      }
+
+      100% {
+        top: 100%;
+      }
+    }
+
+    .overlay-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      width: 52px;
+      height: 52px;
+      border: 1px solid rgba(0, 180, 216, 0.2);
+      background: rgba(10, 22, 40, 0.6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      transition: all 0.4s;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+
+    .overlay-close:hover {
+      border-color: var(--secondary);
+      color: var(--secondary);
+      box-shadow: 0 0 30px rgba(255, 0, 255, 0.15);
+      transform: rotate(90deg) scale(1.1);
+    }
+
+    .overlay-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      z-index: 1;
+    }
+
+    .overlay-card {
+      display: flex;
+      align-items: center;
+      gap: 5rem;
+      max-width: 1100px;
+      width: 100%;
+      transform: scale(0.85) translateY(30px);
+      opacity: 0;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .overlay.active .overlay-card {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      transition-delay: 0.15s;
+    }
+
+    .overlay-photo-side {
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .overlay-photo-frame {
+      width: 320px;
+      height: 320px;
+      border-radius: 16px;
+      padding: 4px;
+      background: linear-gradient(135deg,
+          var(--primary-bright),
+          var(--primary),
+          #1a3a5c,
+          var(--secondary-dim),
+          var(--primary-bright));
+      background-size: 400% 400%;
+      animation: borderRotate 6s ease infinite;
+      position: relative;
+    }
+
+    .overlay-photo-frame::before {
+      content: "";
+      position: absolute;
+      inset: -30px;
+      border-radius: 30px;
+      background: radial-gradient(circle,
+          rgba(0, 180, 216, 0.12),
+          transparent 70%);
+      z-index: -1;
+    }
+
+    /* Hex decoration near photo */
+    .overlay-photo-frame::after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      right: -15px;
+      width: 30px;
+      height: 30px;
+      border: 1px solid rgba(0, 180, 216, 0.2);
+      border-radius: 6px;
+      transform: rotate(45deg);
+    }
+
+    @keyframes borderRotate {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .overlay-photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 14px;
+      object-fit: cover;
+      display: block;
+      background: var(--dark-bg);
+    }
+
+    /* Overlay status bar */
+    .overlay-status {
+      font-family: "Share Tech Mono", monospace;
+      font-size: 0.6rem;
+      color: rgba(0, 240, 255, 0.3);
+      letter-spacing: 3px;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .overlay-info {
+      flex: 1;
+    }
+
+    .overlay-badge {
+      font-family: "Share Tech Mono", monospace;
+      font-size: 0.7rem;
+      color: var(--secondary);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.5s 0.3s;
+    }
+
+    .overlay.active .overlay-badge {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .overlay-name {
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      background: linear-gradient(135deg,
+          var(--primary-bright),
+          #80e0ff,
+          var(--text));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.5s 0.35s;
+    }
+
+    .overlay.active .overlay-name {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .overlay-position {
+      font-family: "Share Tech Mono", monospace;
+      font-size: 1rem;
+      color: var(--primary-bright);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.5s 0.4s;
+    }
+
+    .overlay.active .overlay-position {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .overlay-divider {
+      width: 70px;
+      height: 3px;
+      background: linear-gradient(90deg,
+          var(--primary-bright),
+          var(--secondary));
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.6s 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .overlay.active .overlay-divider {
+      transform: scaleX(1);
+    }
+
+    .overlay-bio {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.85;
+      max-width: 520px;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: all 0.5s 0.5s;
+    }
+
+    .overlay.active .overlay-bio {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .overlay-socials {
+      display: flex;
+      gap: 1rem;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: all 0.5s 0.55s;
+    }
+
+    .overlay.active .overlay-socials {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .overlay-socials a {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 180, 216, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.3s;
+      font-size: 1.1rem;
+      background: rgba(10, 22, 40, 0.4);
+      backdrop-filter: blur(10px);
+    }
+
+    .overlay-socials a:hover {
+      border-color: var(--primary-bright);
+      color: var(--primary-bright);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
+      transform: translateY(-4px) scale(1.1);
+    }
+
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 1200px) {
+      .chip-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 4rem 3rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .overlay-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 2.5rem;
+        overflow-y: auto;
+        max-height: 90vh;
+        padding: 2rem 0;
+      }
+
+      .overlay-photo-frame {
+        width: 240px;
+        height: 240px;
+      }
+
+      .overlay-divider {
+        margin: 1.5rem auto;
+      }
+
+      .overlay-bio {
+        max-width: 100%;
+      }
+
+      .overlay-socials {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(2, 5, 8, 0.98);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2.5rem;
+        backdrop-filter: blur(25px);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .chip-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 3.5rem 2rem;
+      }
+
+      .processor {
+        width: 180px;
+        height: 230px;
+      }
+
+      .processor-photo-wrap {
+        width: 110px;
+        height: 110px;
+        top: 20px;
+      }
+
+      .processor-name {
+        font-size: 0.72rem;
+      }
+
+      .processor-position {
+        font-size: 0.5rem;
+      }
+
+      .processor-detail-top {
+        top: 138px;
+      }
+
+      .section {
+        padding: 3rem 3% 4rem;
+      }
+
+      .scroll-hint {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .chip-grid {
+        grid-template-columns: 1fr;
+        gap: 4rem 0;
+        max-width: 340px;
+        margin: 0 auto;
+      }
+
+      .overlay-content {
+        padding: 1rem;
+      }
+
+      .overlay-photo-frame {
+        width: 180px;
+        height: 180px;
+      }
+
+      .overlay-name {
+        font-size: 1.5rem;
+      }
+
+      .overlay-close {
+        top: 1rem;
+        right: 1rem;
+        width: 44px;
+        height: 44px;
+        font-size: 1rem;
+      }
+    }
+
+    /* ============ MOBILE: always-on glow (no hover on touch) ============ */
+    @media (max-width: 768px) {
+
+      /* Processor frame glow */
+      .chip-card .processor-frame {
+        border-color: var(--primary);
+        box-shadow:
+          0 0 20px rgba(0, 240, 255, 0.15),
+          0 0 60px rgba(0, 240, 255, 0.05),
+          inset 0 0 30px rgba(0, 180, 216, 0.05);
+      }
+
+      .chip-card .processor-frame::before {
+        border-color: rgba(0, 240, 255, 0.15);
+      }
+
+      .chip-card .processor {
+        filter: drop-shadow(0 0 30px rgba(0, 240, 255, 0.15));
+      }
+
+      /* Corner accents */
+      .chip-card .corner-accent {
+        opacity: 1;
+      }
+
+      /* Photo border glow + rotating gradient */
+      .chip-card .processor-photo-border {
+        border-color: var(--primary-bright);
+        box-shadow:
+          0 0 15px rgba(0, 240, 255, 0.3),
+          0 0 40px rgba(0, 240, 255, 0.1);
+      }
+
+      .chip-card .processor-photo-border::before {
+        opacity: 1;
+      }
+
+      /* Photo saturated */
+      .chip-card .processor-photo {
+        filter: saturate(1) brightness(1) contrast(1);
+      }
+
+      /* Name glow */
+      .chip-card .processor-name {
+        text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+      }
+
+      .chip-card .processor-position {
+        opacity: 1;
+      }
+
+      /* Notch glow */
+      .chip-card .processor-notch {
+        border-color: var(--primary-bright);
+        box-shadow: 0 0 10px var(--chip-glow);
+      }
+
+      /* Model label */
+      .chip-card .processor-model {
+        color: var(--primary);
+      }
+
+      /* Detail line */
+      .chip-card .processor-detail {
+        opacity: 0.3;
+      }
+
+      /* Pins lit */
+      .chip-card .chip-pins-left .pin-h,
+      .chip-card .chip-pins-right .pin-h {
+        background: linear-gradient(90deg, var(--primary), #50e0ff);
+        box-shadow: 0 0 10px var(--chip-glow);
+      }
+
+      .chip-card .chip-pins-top .pin-vt,
+      .chip-card .chip-pins-bottom .pin-vt {
+        background: linear-gradient(180deg, var(--primary), #50e0ff);
+        box-shadow: 0 0 10px var(--chip-glow);
+      }
+
+      /* Traces glow */
+      .chip-card .trace-line {
+        stroke: var(--trace-glow);
+        filter: drop-shadow(0 0 4px var(--chip-glow));
+      }
+
+      .chip-card .trace-flow {
+        opacity: 0.7;
+        animation: electricFlow 1.2s linear infinite;
+      }
+
+      .chip-card .trace-node {
+        fill: var(--primary-bright);
+        filter: drop-shadow(0 0 8px var(--node-glow));
+      }
+
+      .chip-card .trace-node-ring {
+        stroke: var(--primary-bright);
+        filter: drop-shadow(0 0 6px var(--node-glow));
+      }
+
+      .chip-card .trace-component {
+        stroke: rgba(0, 180, 216, 0.5);
+      }
+
+      /* Data stream text brighter */
+      .chip-card .data-stream {
+        color: rgba(0, 240, 255, 0.15);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Preloader -->
+
+  <!-- Cursor glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- Background -->
+  <div class="pcb-bg"></div>
+  <div class="pcb-grid"></div>
+  <canvas id="particleCanvas"></canvas>
+
+
+  <!-- Hero -->
+
+  <!-- Core Members -->
+  <section class="section" id="core">
+    <div class="section-header reveal">
+      <div class="section-label">// CORE PROCESSORS</div>
+      <h2 class="section-title">Core Committee</h2>
+      <div class="section-divider"></div>
+      <div class="section-count">6 MEMBERS LOADED</div>
+    </div>
+    <div class="chip-grid" id="coreGrid"></div>
+  </section>
+
+  <!-- Sub-Core Members -->
+  <section class="section" id="subcore">
+    <div class="section-header reveal">
+      <div class="section-label">// CO-PROCESSORS</div>
+      <h2 class="section-title">Sub-Core Committee</h2>
+      <div class="section-divider"></div>
+      <div class="section-count">8 MEMBERS LOADED</div>
+    </div>
+    <div class="chip-grid" id="subcoreGrid"></div>
+  </section>
+
+  <!-- Full-Screen Overlay -->
+  <div class="overlay" id="overlay">
+    <div class="overlay-backdrop" id="overlayBackdrop"></div>
+    <div class="overlay-circuits">
+      <div class="ot ot-h" style="top: 10%; animation-delay: 0.1s"></div>
+      <div class="ot ot-h" style="top: 30%; animation-delay: 0.15s"></div>
+      <div class="ot ot-h" style="top: 55%; animation-delay: 0.2s"></div>
+      <div class="ot ot-h" style="top: 75%; animation-delay: 0.25s"></div>
+      <div class="ot ot-h" style="top: 90%; animation-delay: 0.3s"></div>
+      <div class="ot ot-v" style="left: 6%; animation-delay: 0.12s"></div>
+      <div class="ot ot-v" style="left: 22%; animation-delay: 0.18s"></div>
+      <div class="ot ot-v" style="left: 45%; animation-delay: 0.22s"></div>
+      <div class="ot ot-v" style="left: 68%; animation-delay: 0.16s"></div>
+      <div class="ot ot-v" style="left: 88%; animation-delay: 0.28s"></div>
+    </div>
+    <div class="overlay-scan"></div>
+    <button class="overlay-close" id="overlayClose">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="overlay-content">
+      <div class="overlay-card">
+        <div class="overlay-photo-side">
+          <div class="overlay-photo-frame">
+            <img class="overlay-photo" id="overlayPhoto" src="" alt="" />
+          </div>
+          <div class="overlay-status" id="overlayStatus">
+            SYS.READY // NODE.ACTIVE
+          </div>
+        </div>
+        <div class="overlay-info">
+          <div class="overlay-badge" id="overlayBadge">// CORE PROCESSOR</div>
+          <h2 class="overlay-name" id="overlayName"></h2>
+          <div class="overlay-position" id="overlayPosition"></div>
+          <div class="overlay-divider"></div>
+          <p class="overlay-bio" id="overlayBio"></p>
+          <div class="overlay-socials" id="overlaySocials"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    /* ============================================================
+ TEAM DATA
+ ============================================================ */
+    const coreMembers = [
+      {
+        name: "Rohan Mehta",
+        position: "Chairperson",
+        photo: "https://i.pravatar.cc/400?img=11",
+        model: "IC-001",
+        bio: "Visionary leader steering IETE KJSIT towards new horizons. Passionate about embedded systems, IoT, and fostering a culture of innovation across the student community.",
+        socials: { linkedin: "#", github: "#", instagram: "#" },
+      },
+      {
+        name: "Aarav Mehta",
+        position: "Vice Chairperson",
+        photo: "https://i.pravatar.cc/400?img=12",
+        model: "IC-002",
+        bio: "Strategic planner and the backbone of operations. Specializes in circuit design and VLSI with a knack for transforming ideas into executable projects.",
+        socials: { linkedin: "#", github: "#", instagram: "#" },
+      },
+      {
+        name: "Sneha Patil",
+        position: "Secretary",
+        photo: "https://i.pravatar.cc/400?img=5",
+        model: "IC-003",
+        bio: "Organizational powerhouse keeping every gear in motion. Expert in communication systems and digital signal processing with impeccable planning skills.",
+        socials: { linkedin: "#", github: "#", instagram: "#" },
+      },
+      {
+        name: "Rohan Desai",
+        position: "Treasurer",
+        photo: "https://i.pravatar.cc/400?img=14",
+        model: "IC-004",
+        bio: "Financial architect ensuring optimal resource allocation. Background in power electronics and renewable energy systems with an analytical mind.",
+        socials: { linkedin: "#", github: "#", instagram: "#" },
+      },
+      {
+        name: "Priya Sharma",
+        position: "Technical Head",
+        photo: "https://i.pravatar.cc/400?img=9",
+        model: "IC-005",
+        bio: "Code alchemist and hardware whisperer. Leads all technical initiatives with expertise in microcontrollers, PCB design, and full-stack development.",
+        socials: { linkedin: "#", github: "#", instagram: "#" },
+      },
+      {
+        name: "Arjun Nair",
+        position: "Event Head",
+        photo: "https://i.pravatar.cc/400?img=15",
+        model: "IC-006",
+        bio: "Creative force behind every memorable event. Blends technical workshops with engaging experiences that leave a lasting impact on participants.",
+        socials: { linkedin: "#", github: "#", instagram: "#" },
+      },
+    ];
+
+    const subcoreMembers = [
+      {
+        name: "Kavya Joshi",
+        position: "Technical Coordinator",
+        photo: "https://i.pravatar.cc/400?img=20",
+        model: "SC-001",
+        bio: "Drives technical workshops and hands-on sessions. Passionate about AI/ML and bridging the gap between theoretical knowledge and practical application.",
+        socials: { linkedin: "#", github: "#" },
+      },
+      {
+        name: "Vedant Kulkarni",
+        position: "Creative Head",
+        photo: "https://i.pravatar.cc/400?img=33",
+        model: "SC-002",
+        bio: "Visual storyteller crafting the digital identity of IETE. Expert in UI/UX design, motion graphics, and creating compelling visual narratives.",
+        socials: { linkedin: "#", instagram: "#" },
+      },
+      {
+        name: "Ananya Rao",
+        position: "PR & Outreach",
+        photo: "https://i.pravatar.cc/400?img=25",
+        model: "SC-003",
+        bio: "Building bridges between IETE and the wider tech community. Manages partnerships, social media presence, and external communications.",
+        socials: { linkedin: "#", instagram: "#" },
+      },
+      {
+        name: "Siddhesh More",
+        position: "Content Lead",
+        photo: "https://i.pravatar.cc/400?img=53",
+        model: "SC-004",
+        bio: "Wordsmith architecting the voice of IETE KJSIT. Creates engaging technical content, newsletters, and documentation with precision.",
+        socials: { linkedin: "#", github: "#" },
+      },
+      {
+        name: "Ishita Verma",
+        position: "Social Media Head",
+        photo: "https://i.pravatar.cc/400?img=44",
+        model: "SC-005",
+        bio: "Digital strategist amplifying IETE's online presence. Masters the art of engagement through innovative social media campaigns and reels.",
+        socials: { linkedin: "#", instagram: "#" },
+      },
+      {
+        name: "Omkar Bhosale",
+        position: "Logistics Coordinator",
+        photo: "https://i.pravatar.cc/400?img=60",
+        model: "SC-006",
+        bio: "The silent engine behind seamless event execution. Manages venues, equipment, and coordination ensuring zero downtime on event day.",
+        socials: { linkedin: "#", github: "#" },
+      },
+      {
+        name: "Riya Gupta",
+        position: "Design Coordinator",
+        photo: "https://i.pravatar.cc/400?img=30",
+        model: "SC-007",
+        bio: "Pixel-perfect designer bringing every poster, banner, and digital asset to life. Skilled in Figma, Illustrator, and creative branding.",
+        socials: { linkedin: "#", instagram: "#" },
+      },
+      {
+        name: "Aditya Sawant",
+        position: "Web Developer",
+        photo: "https://i.pravatar.cc/400?img=52",
+        model: "SC-008",
+        bio: "Full-stack developer maintaining and building IETE's digital infrastructure. Proficient in React, Node.js, and cloud deployments.",
+        socials: { linkedin: "#", github: "#" },
+      },
+    ];
+
+
+    /* ============================================================
+ PARTICLE CANVAS NETWORK — optimized
+ ============================================================ */
+    const canvas = document.getElementById("particleCanvas");
+    const ctx = canvas.getContext("2d", { alpha: true });
+    let particles = [];
+    let mouse = { x: -1000, y: -1000 };
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const PARTICLE_COUNT = isMobile ? 25 : 40;
+    const CONNECTION_DIST = 140;
+    const CONNECTION_DIST_SQ = CONNECTION_DIST * CONNECTION_DIST;
+    const MOUSE_DIST = 200;
+    const MOUSE_DIST_SQ = MOUSE_DIST * MOUSE_DIST;
+    let animationRunning = true;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    let resizeTimeout;
+    window.addEventListener(
+      "resize",
+      () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(resizeCanvas, 150);
+      },
+      { passive: true },
+    );
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.r = Math.random() * 1.5 + 0.5;
+        this.baseAlpha = Math.random() * 0.3 + 0.1;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0, 180, 216, ${this.baseAlpha})`;
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+    function animateParticles() {
+      if (!animationRunning) {
+        requestAnimationFrame(animateParticles);
+        return;
+      }
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+      }
+
+      // Connections between particles — use squared distance to avoid sqrt
+      for (let i = 0; i < particles.length; i++) {
+        const pi = particles[i];
+        for (let j = i + 1; j < particles.length; j++) {
+          const pj = particles[j];
+          const dx = pi.x - pj.x;
+          const dy = pi.y - pj.y;
+          const distSq = dx * dx + dy * dy;
+          if (distSq < CONNECTION_DIST_SQ) {
+            const dist = Math.sqrt(distSq);
+            const alpha = (1 - dist / CONNECTION_DIST) * 0.08;
+            ctx.beginPath();
+            ctx.moveTo(pi.x, pi.y);
+            ctx.lineTo(pj.x, pj.y);
+            ctx.strokeStyle = `rgba(0, 180, 216, ${alpha})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+        // Mouse connections
+        const dx = pi.x - mouse.x;
+        const dy = pi.y - mouse.y;
+        const distSq = dx * dx + dy * dy;
+        if (distSq < MOUSE_DIST_SQ) {
+          const dist = Math.sqrt(distSq);
+          const alpha = (1 - dist / MOUSE_DIST) * 0.15;
+          ctx.beginPath();
+          ctx.moveTo(pi.x, pi.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // Pause particle animation when tab not visible
+    document.addEventListener("visibilitychange", () => {
+      animationRunning = !document.hidden;
+    });
+
+    /* ============================================================
+ CURSOR GLOW — throttled via rAF
+ ============================================================ */
+    const cursorGlow = document.getElementById("cursorGlow");
+    let cursorRAF = null;
+    document.addEventListener(
+      "mousemove",
+      (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        if (cursorRAF) return;
+        cursorRAF = requestAnimationFrame(() => {
+          cursorGlow.style.left = mouse.x + "px";
+          cursorGlow.style.top = mouse.y + "px";
+          cursorRAF = null;
+        });
+      },
+      { passive: true },
+    );
+
+    /* ============================================================
+ CIRCUIT TRACE SVG GENERATOR
+ ============================================================ */
+    function circuitSVG(idx) {
+      const seed = idx * 137;
+      const r = (n) => ((seed + n * 31) % 100) / 100;
+      const cx = 175,
+        cy = 175;
+      const hw = 112,
+        hh = 136;
+      const t = [];
+
+      // We generate both visual traces and "flow" overlay traces for electricity effect
+      const flowPaths = [];
+
+      // Left traces
+      for (let i = 0; i < 8; i++) {
+        const y = cy - 100 + i * 28;
+        const x1 = cx - hw - 24;
+        const bendX = x1 - 15 - r(i) * 50;
+        const endX = Math.max(0, bendX - 20 - r(i + 10) * 30);
+        const endY = y + (r(i + 20) - 0.5) * 50;
+        const pts = `${x1},${y} ${bendX},${y} ${bendX},${endY} ${endX},${endY}`;
+        t.push(`<polyline class="trace-line" points="${pts}"/>`);
+        flowPaths.push(
+          `<polyline class="trace-flow" points="${pts}" style="animation-delay:${(r(i) * 0.5).toFixed(2)}s"/>`,
+        );
+        t.push(
+          `<circle class="trace-node pulse-node" cx="${bendX}" cy="${y}" r="2.5" style="animation-delay:${(r(i) * 3).toFixed(1)}s"/>`,
+        );
+        if (r(i + 5) > 0.35)
+          t.push(
+            `<circle class="trace-node" cx="${endX}" cy="${endY}" r="2"/>`,
+          );
+        if (r(i + 5) > 0.55)
+          t.push(
+            `<circle class="trace-node-ring" cx="${endX}" cy="${endY}" r="5"/>`,
+          );
+        if (r(i + 30) > 0.6) {
+          const mx = (bendX + endX) / 2;
+          t.push(
+            `<rect class="trace-component" x="${mx - 5}" y="${endY - 3}" width="10" height="6" rx="1"/>`,
+          );
+        }
+      }
+
+      // Right traces
+      for (let i = 0; i < 8; i++) {
+        const y = cy - 100 + i * 28;
+        const x1 = cx + hw + 24;
+        const bendX = x1 + 15 + r(i + 8) * 50;
+        const endX = Math.min(350, bendX + 20 + r(i + 18) * 30);
+        const endY = y + (r(i + 28) - 0.5) * 50;
+        const pts = `${x1},${y} ${bendX},${y} ${bendX},${endY} ${endX},${endY}`;
+        t.push(`<polyline class="trace-line" points="${pts}"/>`);
+        flowPaths.push(
+          `<polyline class="trace-flow" points="${pts}" style="animation-delay:${(r(i + 3) * 0.5).toFixed(2)}s"/>`,
+        );
+        t.push(
+          `<circle class="trace-node pulse-node" cx="${bendX}" cy="${y}" r="2.5" style="animation-delay:${(r(i + 3) * 3).toFixed(1)}s"/>`,
+        );
+        if (r(i + 12) > 0.35)
+          t.push(
+            `<circle class="trace-node" cx="${endX}" cy="${endY}" r="2"/>`,
+          );
+        if (r(i + 12) > 0.55)
+          t.push(
+            `<circle class="trace-node-ring" cx="${endX}" cy="${endY}" r="5"/>`,
+          );
+        if (r(i + 40) > 0.6) {
+          const mx = (bendX + endX) / 2;
+          t.push(
+            `<rect class="trace-component" x="${mx - 5}" y="${endY - 3}" width="10" height="6" rx="1"/>`,
+          );
+        }
+      }
+
+      // Top traces
+      for (let i = 0; i < 7; i++) {
+        const x = cx - 72 + i * 24;
+        const y1 = cy - hh - 20;
+        const bendY = y1 - 12 - r(i + 40) * 30;
+        const endY = Math.max(0, bendY - 15 - r(i + 50) * 20);
+        const endX = x + (r(i + 60) - 0.5) * 40;
+        const pts = `${x},${y1} ${x},${bendY} ${endX},${bendY} ${endX},${endY}`;
+        t.push(`<polyline class="trace-line" points="${pts}"/>`);
+        flowPaths.push(
+          `<polyline class="trace-flow" points="${pts}" style="animation-delay:${(r(i + 6) * 0.5).toFixed(2)}s"/>`,
+        );
+        t.push(
+          `<circle class="trace-node pulse-node" cx="${x}" cy="${bendY}" r="2" style="animation-delay:${(r(i + 6) * 3).toFixed(1)}s"/>`,
+        );
+        if (r(i + 45) > 0.5) {
+          const my = (bendY + endY) / 2;
+          t.push(
+            `<rect class="trace-component" x="${endX - 3}" y="${my - 5}" width="6" height="10" rx="1"/>`,
+          );
+        }
+      }
+
+      // Bottom traces
+      for (let i = 0; i < 7; i++) {
+        const x = cx - 72 + i * 24;
+        const y1 = cy + hh + 20;
+        const bendY = y1 + 12 + r(i + 70) * 30;
+        const endY = Math.min(350, bendY + 15 + r(i + 80) * 20);
+        const endX = x + (r(i + 90) - 0.5) * 40;
+        const pts = `${x},${y1} ${x},${bendY} ${endX},${bendY} ${endX},${endY}`;
+        t.push(`<polyline class="trace-line" points="${pts}"/>`);
+        flowPaths.push(
+          `<polyline class="trace-flow" points="${pts}" style="animation-delay:${(r(i + 9) * 0.5).toFixed(2)}s"/>`,
+        );
+        t.push(
+          `<circle class="trace-node pulse-node" cx="${x}" cy="${bendY}" r="2" style="animation-delay:${(r(i + 9) * 3).toFixed(1)}s"/>`,
+        );
+        if (r(i + 75) > 0.5) {
+          const my = (bendY + endY) / 2;
+          t.push(
+            `<rect class="trace-component" x="${endX - 3}" y="${my - 5}" width="6" height="10" rx="1"/>`,
+          );
+        }
+      }
+
+      // Corner diagonal traces
+      [
+        { sx: cx - hw, sy: cy - hh, dx: -1, dy: -1 },
+        { sx: cx + hw, sy: cy - hh, dx: 1, dy: -1 },
+        { sx: cx - hw, sy: cy + hh, dx: -1, dy: 1 },
+        { sx: cx + hw, sy: cy + hh, dx: 1, dy: 1 },
+      ].forEach((c, ci) => {
+        const mid = 35 + r(ci + 90) * 25;
+        const ex = c.sx + c.dx * mid;
+        const ey = c.sy + c.dy * mid;
+        t.push(
+          `<line class="trace-line" x1="${c.sx}" y1="${c.sy}" x2="${ex}" y2="${ey}"/>`,
+        );
+        t.push(`<circle class="trace-node" cx="${ex}" cy="${ey}" r="3"/>`);
+        t.push(
+          `<circle class="trace-node-ring" cx="${ex}" cy="${ey}" r="6"/>`,
+        );
+      });
+
+      return `<svg viewBox="0 0 350 350" preserveAspectRatio="xMidYMid meet">${t.join("")}${flowPaths.join("")}</svg>`;
+    }
+
+    /* ============================================================
+ DATA STREAM TEXT GENERATOR
+ ============================================================ */
+    function generateDataStream() {
+      const chars = "01";
+      let str = "";
+      for (let i = 0; i < 24; i++)
+        str += chars[Math.floor(Math.random() * 2)];
+      return str;
+    }
+
+    /* ============================================================
+ CREATE CARD HTML
+ ============================================================ */
+    function createCard(member, type, idx) {
+      const pH = 8,
+        pV = 7;
+      const pL = Array(pH).fill('<div class="pin-h"></div>').join("");
+      const pR = Array(pH).fill('<div class="pin-h"></div>').join("");
+      const pT = Array(pV).fill('<div class="pin-vt"></div>').join("");
+      const pB = Array(pV).fill('<div class="pin-vt"></div>').join("");
+
+      return `
+    <div class="chip-card" data-member='${JSON.stringify(member).replace(/'/g, "&#39;")}' data-type="${type}" data-idx="${idx}">
+        <div class="circuit-traces">${circuitSVG(idx)}</div>
+        <div class="data-stream" style="top: 15%; left: -10px; transform: rotate(-90deg);">${generateDataStream()}</div>
+        <div class="data-stream" style="bottom: 10%; right: -10px; transform: rotate(90deg);">${generateDataStream()}</div>
+        <div class="processor-3d">
+            <div class="processor">
+                <div class="chip-pins chip-pins-left">${pL}</div>
+                <div class="chip-pins chip-pins-right">${pR}</div>
+                <div class="chip-pins chip-pins-top">${pT}</div>
+                <div class="chip-pins chip-pins-bottom">${pB}</div>
+                <div class="processor-frame">
+                    <div class="processor-notch"></div>
+                    <div class="processor-model">${member.model}</div>
+                    <div class="processor-detail processor-detail-top"></div>
+                    <div class="corner-accent corner-accent--tl"></div>
+                    <div class="corner-accent corner-accent--tr"></div>
+                    <div class="corner-accent corner-accent--bl"></div>
+                    <div class="corner-accent corner-accent--br"></div>
+                </div>
+                <div class="processor-photo-wrap">
+                    <div class="processor-photo-border">
+                        <img class="processor-photo" src="${member.photo}" alt="${member.name}" loading="lazy">
+                    </div>
+                </div>
+                <div class="processor-info">
+                    <div class="processor-name">${member.name}</div>
+                    <div class="processor-position">${member.position}</div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+    }
+
+    /* ============================================================
+ RENDER CARDS — batch innerHTML for fewer reflows
+ ============================================================ */
+    const coreGrid = document.getElementById("coreGrid");
+    const subcoreGrid = document.getElementById("subcoreGrid");
+
+    coreGrid.innerHTML = coreMembers
+      .map((m, i) => createCard(m, "core", i))
+      .join("");
+    subcoreGrid.innerHTML = subcoreMembers
+      .map((m, i) => createCard(m, "subcore", i + coreMembers.length))
+      .join("");
+
+    /* ============================================================
+ 3D TILT EFFECT — throttled via rAF
+ ============================================================ */
+    document.querySelectorAll(".chip-card").forEach((card) => {
+      const wrapper = card.querySelector(".processor-3d");
+      if (!wrapper) return;
+      let tiltRAF = null;
+
+      card.addEventListener(
+        "mousemove",
+        (e) => {
+          if (tiltRAF) return;
+          tiltRAF = requestAnimationFrame(() => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
+            wrapper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            tiltRAF = null;
+          });
+        },
+        { passive: true },
+      );
+
+      card.addEventListener("mouseleave", () => {
+        if (tiltRAF) {
+          cancelAnimationFrame(tiltRAF);
+          tiltRAF = null;
+        }
+        wrapper.style.transform = "rotateX(0) rotateY(0)";
+        wrapper.style.transition = "transform 0.5s ease";
+        setTimeout(() => {
+          wrapper.style.transition = "transform 0.1s ease-out";
+        }, 500);
+      });
+
+      card.addEventListener("mouseenter", () => {
+        wrapper.style.transition = "transform 0.1s ease-out";
+      });
+    });
+
+    /* ============================================================
+ OVERLAY LOGIC
+ ============================================================ */
+    const overlay = document.getElementById("overlay");
+
+    function openOverlay(member, type) {
+      document.getElementById("overlayPhoto").src = member.photo;
+      document.getElementById("overlayName").textContent = member.name;
+      document.getElementById("overlayPosition").textContent =
+        member.position;
+      document.getElementById("overlayBadge").textContent =
+        type === "core" ? "// CORE PROCESSOR" : "// CO-PROCESSOR";
+      document.getElementById("overlayBio").textContent = member.bio;
+      document.getElementById("overlayStatus").textContent =
+        `SYS.READY // ${member.model} // NODE.ACTIVE`;
+
+      const sc = document.getElementById("overlaySocials");
+      sc.innerHTML = "";
+      const icons = {
+        linkedin: "fab fa-linkedin-in",
+        github: "fab fa-github",
+        instagram: "fab fa-instagram",
+        twitter: "fab fa-twitter",
+      };
+      if (member.socials) {
+        for (const [p, url] of Object.entries(member.socials)) {
+          const a = document.createElement("a");
+          a.href = url;
+          a.target = "_blank";
+          a.rel = "noopener";
+          a.innerHTML = `<i class="${icons[p] || "fas fa-link"}"></i>`;
+          sc.appendChild(a);
+        }
+      }
+      overlay.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeOverlay() {
+      overlay.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll(".chip-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        openOverlay(JSON.parse(card.dataset.member), card.dataset.type);
+      });
+    });
+
+    document
+      .getElementById("overlayClose")
+      .addEventListener("click", closeOverlay);
+    document
+      .getElementById("overlayBackdrop")
+      .addEventListener("click", closeOverlay);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeOverlay();
+    });
+
+
+
+    /* ============================================================
+ SCROLL ANIMATIONS
+ ============================================================ */
+    const revObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add("visible");
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+    );
+    document.querySelectorAll(".reveal").forEach((el) => revObs.observe(el));
+
+    const cardObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.querySelectorAll(".chip-card").forEach((c, i) => {
+              setTimeout(() => c.classList.add("visible"), i * 120);
+            });
+            cardObs.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.05 },
+    );
+    document
+      .querySelectorAll(".chip-grid")
+      .forEach((g) => cardObs.observe(g));
+
+
+
+    /* ============================================================
+ DATA STREAM REFRESH — cached selectors, skip when hidden
+ ============================================================ */
+    const dataStreams = document.querySelectorAll(".data-stream");
+    setInterval(() => {
+      if (document.hidden) return;
+      dataStreams.forEach((el) => {
+        el.textContent = generateDataStream();
+      });
+    }, 3000);
+  </script>
+</body>
+
+</html>
