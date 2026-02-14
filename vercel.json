@@ -1,7 +1,7 @@
 {
   "buildCommand": "echo 'Static site - no build needed'",
   "outputDirectory": "iete (1)/iete (1)/iete",
-  "framework": "other",
+  "framework": null,
   "rewrites": [
     {
       "source": "/(.*)",
