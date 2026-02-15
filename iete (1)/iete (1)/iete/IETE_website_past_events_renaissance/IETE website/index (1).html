@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IETE Student Chapter - KJSIT</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;600&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+        /* ================= FIXED PAST EVENTS BACKGROUND ================= */
+        #past-events {
+            position: relative;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at center, rgba(0, 0, 0, 0.35), #000 70%),
+                url("theme background.jpeg") center/cover no-repeat;
+            overflow: hidden;
+        }
+
+        #past-events::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, transparent 45%, #000 85%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .scene {
+            position: relative;
+            z-index: 2;
+            background: transparent;
+        }
+
+        .neural-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 3;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ================= PAST EVENTS SECTION (FIXED) ================= -->
+    <section id="past-events">
+        <div class="scene">
+            <div class="page-title">PAST EVENTS</div>
+
+            <!-- Neural Network SVG Overlay -->
+            <svg class="neural-overlay" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+                <defs>
+                    <path id="neuralPath1" d="M0,400 Q480,350 960,400 T1920,400 T2880,400 T3840,400" fill="none"
+                        stroke="rgba(18, 216, 250, 0.4)" stroke-width="1.5" />
+                    <path id="neuralPath2" d="M0,500 Q480,550 960,500 T1920,500 T2880,500 T3840,500" fill="none"
+                        stroke="rgba(31, 162, 255, 0.35)" stroke-width="1.5" />
+                    <path id="neuralPath3" d="M0,600 Q480,650 960,600 T1920,600 T2880,600 T3840,600" fill="none"
+                        stroke="rgba(18, 216, 250, 0.3)" stroke-width="1" />
+                    <path id="neuralPath4" d="M200,450 Q680,480 1160,450 T2120,450 T3080,450 T4040,450" fill="none"
+                        stroke="rgba(31, 162, 255, 0.25)" stroke-width="1" />
+                    <path id="neuralPath5" d="M0,200 Q500,250 1000,200 T2000,200 T3000,200 T4000,200" fill="none"
+                        stroke="rgba(18, 216, 250, 0.2)" stroke-width="1.2" />
+                    <path id="neuralPath6" d="M0,800 Q450,750 900,800 T1800,800 T2700,800 T3600,800" fill="none"
+                        stroke="rgba(31, 162, 255, 0.2)" stroke-width="1.2" />
+                    <path id="neuralPath7" d="M100,300 Q600,350 1100,300 T2100,300 T3100,300 T4100,300" fill="none"
+                        stroke="rgba(18, 216, 250, 0.15)" stroke-width="1" />
+                    <path id="neuralPath8" d="M-100,700 Q400,750 900,700 T1900,700 T2900,700 T3900,700" fill="none"
+                        stroke="rgba(31, 162, 255, 0.15)" stroke-width="1" />
+                    <circle id="node" r="2" fill="rgba(18, 216, 250, 0.6)" />
+                </defs>
+
+                <g class="neural-paths">
+                    <use href="#neuralPath1" />
+                    <use href="#neuralPath2" />
+                    <use href="#neuralPath3" />
+                    <use href="#neuralPath4" />
+                    <use href="#neuralPath5" />
+                    <use href="#neuralPath6" />
+                    <use href="#neuralPath7" />
+                    <use href="#neuralPath8" />
+                </g>
+
+                <g class="neural-nodes">
+                    <line x1="240" y1="400" x2="240" y2="500" stroke="rgba(18, 216, 250, 0.2)" stroke-width="1" />
+                    <line x1="720" y1="350" x2="720" y2="550" stroke="rgba(31, 162, 255, 0.2)" stroke-width="1" />
+                    <line x1="1200" y1="400" x2="1200" y2="600" stroke="rgba(18, 216, 250, 0.15)" stroke-width="1" />
+                    <line x1="1680" y1="400" x2="1680" y2="500" stroke="rgba(31, 162, 255, 0.2)" stroke-width="1" />
+
+                    <line x1="500" y1="200" x2="500" y2="300" stroke="rgba(18, 216, 250, 0.1)" stroke-width="1" />
+                    <line x1="1400" y1="700" x2="1400" y2="800" stroke="rgba(31, 162, 255, 0.1)" stroke-width="1" />
+
+                    <use href="#node" x="240" y="400" />
+                    <use href="#node" x="240" y="500" />
+                    <use href="#node" x="720" y="350" />
+                    <use href="#node" x="720" y="550" />
+                    <use href="#node" x="1200" y="400" />
+                    <use href="#node" x="1200" y="600" />
+                    <use href="#node" x="1680" y="400" />
+                    <use href="#node" x="1680" y="500" />
+
+                    <use href="#node" x="500" y="200" />
+                    <use href="#node" x="500" y="300" />
+                    <use href="#node" x="1400" y="700" />
+                    <use href="#node" x="1400" y="800" />
+                    <use href="#node" x="900" y="250" />
+                    <use href="#node" x="200" y="750" />
+                </g>
+            </svg>
+
+            <div class="main-container">
+                <div class="disc-wrapper">
+                    <img src="disc 3.png" alt="Rotating Disc" class="disc">
+
+                    <!-- Curvature Text -->
+                    <svg class="disc-text-svg" viewBox="0 0 1000 1000">
+                        <defs>
+                            <!-- Path starting at 0 degrees (3 o'clock) with radius 400 to match icons -->
+                            <path id="textPath" d="M 500, 500 m 400, 0 a 400,400 0 1,1 -800,0 a 400,400 0 1,1 800,0" />
+
+                            <!-- Blue-Red Gradient for Renaissance text -->
+                            <linearGradient id="renaissanceGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#1FA2FF;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#ff2975;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <g class="renaissance-text">
+                            <!-- Each word centered in the 90-degree gaps: 45, 135, 225, 315 degrees -->
+                            <text class="renaissance-word" data-title="IETE RENAISSANCE" data-date="Annual flagship"
+                                data-desc="The grand convergence of technology, culture, and innovation. Re-engineering the standard for future academic excellence.">
+                                <textPath href="#textPath" startOffset="12.5%" text-anchor="middle">RENAISSANCE
+                                </textPath>
+                            </text>
+                            <text class="renaissance-word" data-title="IETE RENAISSANCE" data-date="Annual flagship"
+                                data-desc="The grand convergence of technology, culture, and innovation. Re-engineering the standard for future academic excellence.">
+                                <textPath href="#textPath" startOffset="37.5%" text-anchor="middle">RENAISSANCE
+                                </textPath>
+                            </text>
+                            <text class="renaissance-word" data-title="IETE RENAISSANCE" data-date="Annual flagship"
+                                data-desc="The grand convergence of technology, culture, and innovation. Re-engineering the standard for future academic excellence.">
+                                <textPath href="#textPath" startOffset="62.5%" text-anchor="middle">RENAISSANCE
+                                </textPath>
+                            </text>
+                            <text class="renaissance-word" data-title="IETE RENAISSANCE" data-date="Annual flagship"
+                                data-desc="The grand convergence of technology, culture, and innovation. Re-engineering the standard for future academic excellence.">
+                                <textPath href="#textPath" startOffset="87.5%" text-anchor="middle">RENAISSANCE
+                                </textPath>
+                            </text>
+                        </g>
+                    </svg>
+
+                    <!-- Event Items -->
+                    <div class="event-item" data-title="Code Golf" data-date="February 18, 2025"
+                        data-desc="Minimize code, maximize efficiency. Use your logic to solve complex problems with the fewest possible characters.">
+                        <div class="event-content">
+                            <img src="Code Golf.png" class="event-icon" alt="Code Golf">
+                        </div>
+                    </div>
+
+                    <div class="event-item" data-title="DeCodeX" data-date="February 18, 2025"
+                        data-desc="Step into the world of cryptography. Decrypt the unknown and solve high-stakes digital puzzles.">
+                        <div class="event-content">
+                            <img src="DeCodeX.png" class="event-icon" alt="DeCodeX">
+                        </div>
+                    </div>
+
+                    <div class="event-item" data-title="Digital Sherlock" data-date="February 19, 2025"
+                        data-desc="Master of the digital trails. Use OSINT and forensic skills to solve a complex cyber-mystery.">
+                        <div class="event-content">
+                            <img src="Digital Sherlock.png" class="event-icon" alt="Digital Sherlock">
+                        </div>
+                    </div>
+
+                    <div class="event-item" data-title="Prompt Showdown" data-date="February 19, 2025"
+                        data-desc="Battle for the best AI generation. Master the art of prompting to create the most stunning results.">
+                        <div class="event-content">
+                            <img src="Prompt Showdown.png" class="event-icon" alt="Prompt Showdown">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="holographic-projection" id="info-box">
+                    <div class="scanner-line"></div>
+                    <h2 id="event-title">Select Event</h2>
+                    <div class="meta-data">
+                        <span id="event-date">--/--/----</span>
+                    </div>
+                    <p id="event-desc">Hover over the neural nodes on the disc to retrieve archival data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

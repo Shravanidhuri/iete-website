@@ -1,0 +1,544 @@
+:root {
+    --neon-blue: #1FA2FF;
+    --neon-cyan: #12D8FA;
+    /* Complementary lighter blue */
+    --holo-bg: rgba(31, 162, 255, 0.05);
+    --holo-border: rgba(31, 162, 255, 0.3);
+    --text-primary: #e0f7ff;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Rajdhani', sans-serif;
+    color: var(--text-primary);
+    position: relative;
+}
+
+.scene {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    opacity: 0.6;
+}
+
+/* Neural network overlay */
+/* Neural network overlay */
+.neural-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    /* Wider for scroll */
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.7;
+    animation: neuralFlow 12s ease-in-out infinite, neuralScroll 30s linear infinite;
+}
+
+.neural-paths use {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 1000;
+    animation: signalPulse 10s linear infinite;
+}
+
+@keyframes signalPulse {
+    0% {
+        stroke-dashoffset: 1000;
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        opacity: 0.4;
+    }
+}
+
+@keyframes neuralScroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes neuralFlow {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-3%) scale(1.02);
+    }
+}
+
+/* Overlay grid for tech feel with animated waves */
+.scene::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(rgba(0, 20, 40, 0.6), rgba(0, 20, 40, 0.6)),
+        repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 243, 255, 0.05) 1px, rgba(0, 243, 255, 0.05) 2px);
+    background-size: 100% 4px;
+    z-index: -1;
+    pointer-events: none;
+    animation: waveMove 4s ease-in-out infinite;
+}
+
+/* Flowing wave layer 1 - slow horizontal flow */
+.scene::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background:
+        radial-gradient(ellipse 800px 200px at 20% 50%, rgba(31, 162, 255, 0.25), transparent),
+        radial-gradient(ellipse 600px 150px at 80% 70%, rgba(18, 216, 250, 0.2), transparent);
+    z-index: -1;
+    pointer-events: none;
+    animation: flowWave1 6s ease-in-out infinite;
+}
+
+/* Additional flowing wave overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background:
+        radial-gradient(ellipse 1000px 250px at 60% 40%, rgba(31, 162, 255, 0.18), transparent),
+        radial-gradient(ellipse 700px 180px at 30% 80%, rgba(18, 216, 250, 0.22), transparent);
+    z-index: 0;
+    pointer-events: none;
+    animation: flowWave2 8s ease-in-out infinite reverse;
+}
+
+@keyframes waveMove {
+
+    0%,
+    100% {
+        background-position: 0 0, 0 0;
+    }
+
+    50% {
+        background-position: 0 20px, 0 10px;
+    }
+}
+
+@keyframes flowWave1 {
+
+    0%,
+    100% {
+        transform: translateX(0) translateY(0);
+        opacity: 1;
+    }
+
+    25% {
+        transform: translateX(-15%) translateY(-5%);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: translateX(-25%) translateY(0);
+        opacity: 1;
+    }
+
+    75% {
+        transform: translateX(-15%) translateY(5%);
+        opacity: 0.8;
+    }
+}
+
+@keyframes flowWave2 {
+
+    0%,
+    100% {
+        transform: translateX(0) translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    33% {
+        transform: translateX(-20%) translateY(3%) scale(1.05);
+        opacity: 0.7;
+    }
+
+    66% {
+        transform: translateX(-30%) translateY(-3%) scale(0.95);
+        opacity: 0.9;
+    }
+}
+
+.main-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    /* Align content to bottom */
+    overflow: hidden;
+    /* Ensure we don't trigger scrollbars */
+    pointer-events: none;
+    /* Allow interaction with background if needed, but wrapper will catch events */
+}
+
+.disc-wrapper {
+    position: relative;
+    /* Massive size to fill the view */
+    width: 130vh;
+    height: 130vh;
+    min-width: 800px;
+    min-height: 800px;
+
+    /* Position center exactly at bottom of screen */
+    /* Since it's flex-end aligned, the bottom of the disc touches the bottom. */
+    /* We translate Y by 50% to push it down so center is at bottom. */
+    transform: translateY(50%);
+
+    border-radius: 50%;
+    animation: rotateDisc 60s linear infinite;
+    /* Very slow rotation for massive size */
+    transform-style: preserve-3d;
+    pointer-events: auto;
+    /* Re-enable pointer events */
+}
+
+.disc {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px var(--neon-blue));
+}
+
+.disc-text-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    /* Behind event items (z-index 10) */
+}
+
+.renaissance-text {
+    pointer-events: auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.renaissance-word:hover {
+    filter: drop-shadow(0 0 15px #ff2975) brightness(1.2);
+}
+
+.renaissance-text text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    fill: url(#renaissanceGrad);
+    /* Reference the SVG gradient */
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    opacity: 0.9;
+    text-shadow: 0 0 10px rgba(255, 41, 117, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Red-Blue Gradient Theme for Info Box */
+.holographic-projection.renaissance-theme {
+    border-color: #ff2975;
+    background: rgba(20, 0, 10, 0.9);
+    box-shadow: 0 0 70px rgba(255, 41, 117, 0.3), 0 0 20px rgba(31, 162, 255, 0.2);
+}
+
+.holographic-projection.renaissance-theme h2 {
+    background: linear-gradient(90deg, #1FA2FF, #ff2975);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 15px rgba(255, 41, 117, 0.4);
+}
+
+.holographic-projection.renaissance-theme .meta-data {
+    color: #ff2975;
+    border-bottom-color: #1FA2FF;
+}
+
+@keyframes rotateDisc {
+    0% {
+        transform: rotate(0deg) translateY(0);
+    }
+
+    /* translateY must be preserved if part of transform, but here it's on wrapper */
+    /* Wait, if I animate transform on .disc-wrapper, I overwrite the translate. */
+    /* Better to wrap the disc image in another div for rotation, OR use a wrapper-wrapper for position. */
+    /* Actually current structure is .disc-wrapper > .disc + .event-items. */
+    /* If I rotate .disc-wrapper, the items rotate with it. Exact logic I have. */
+    /* BUT if I set `transform: translateY(50%)` on .disc-wrapper, the keyframes will overwrite it. */
+    /* FIX: Put structure: .main-container > .positioning-wrapper > .disc-wrapper(rotating) */
+    /* OR: Update keyframes to include translateY(50%). NO, rotation changes axes. */
+    /* BEST: Use margin-bottom to push it down? No, margin affects flex. */
+    /* ACTUAL FIX: .main-container aligns to bottom. .disc-wrapper has `bottom: -50%`? No. */
+    /* Let's use `margin-bottom: -65vh` (half of 130vh). */
+}
+
+/* Modifying .disc-wrapper to use margin-bottom for positioning instead of transform, to avoid generic animation conflict logic */
+.disc-wrapper {
+    position: relative;
+    width: 120vh;
+    height: 120vh;
+    min-width: 800px;
+    min-height: 800px;
+    margin-bottom: -60vh;
+    /* Pull down by half height */
+
+    border-radius: 50%;
+    animation: rotateDisc 30s linear infinite;
+    transform-style: preserve-3d;
+    pointer-events: auto;
+}
+
+@keyframes rotateDisc {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Event Items aka "Nodes" on the disc */
+.event-item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    /* Icon size */
+    height: 200px;
+    margin-top: -100px;
+    /* Center offset */
+    margin-left: -100px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.event-content {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    border: 5px solid rgba(18, 216, 250, 1);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--neon-blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.event-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.event-item .event-content {
+    animation: counterRotate 30s linear infinite;
+    /* Match disc speed */
+}
+
+@keyframes counterRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+.event-item:hover {
+    transform: scale(1.15);
+    z-index: 20;
+}
+
+.event-item:hover .event-content {
+    background: rgba(0, 243, 255, 0.3);
+    box-shadow: 0 0 30px var(--neon-cyan), inset 0 0 15px var(--neon-cyan);
+    border-color: #fff;
+}
+
+/* When wrapper is hovered, pause rotation */
+.disc-wrapper.paused {
+    animation-play-state: paused;
+}
+
+.disc-wrapper.paused .event-item .event-content {
+    animation-play-state: paused;
+}
+
+/* Holographic Info Box */
+.holographic-projection {
+    position: fixed;
+    /* Fixed relative to viewport */
+    top: 7%;
+    /* Show HIGHER at the top to avoid overlap */
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 400px;
+    padding: 30px;
+    background: rgba(0, 10, 20, 0.9);
+    border: 1px solid var(--neon-cyan);
+
+    /* Strong Underglow */
+    box-shadow: 0 0 60px rgba(31, 162, 255, 0.5), 0 0 20px rgba(0, 0, 0, 0.8);
+
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transition: all 0.4s ease;
+    pointer-events: none;
+    z-index: 100;
+    text-align: center;
+    border-radius: 15px;
+}
+
+@media (max-width: 768px) {
+    .holographic-projection {
+        width: 85%;
+        padding: 30px 20px;
+        top: 4%;
+        min-height: auto;
+    }
+
+    .holographic-projection h2 {
+        font-size: 1.4rem;
+    }
+
+    .holographic-projection p {
+        font-size: 1rem;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
+        top: 20px;
+        left: 20px;
+        letter-spacing: 4px;
+    }
+
+    .renaissance-text {
+        font-size: 22px;
+        letter-spacing: 6px;
+    }
+
+    .disc-text-svg {
+        transform: scale(1.08);
+        /* Pulls text further out on mobile */
+    }
+}
+
+.holographic-projection.active {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Positioning modifiers removed, always top */
+.holographic-projection.left,
+.holographic-projection.right {
+    /* Reset styles just in case JS adds them */
+    top: 15%;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    clip-path: none;
+    border: 1px solid var(--neon-cyan);
+}
+
+.holographic-projection h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--neon-blue);
+    margin: 0 0 15px 0;
+    font-size: 1.8rem;
+    text-shadow: 0 0 10px var(--neon-blue);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.holographic-projection .meta-data {
+    font-size: 1.1rem;
+    color: var(--neon-cyan);
+    margin-bottom: 15px;
+    display: inline-block;
+    border-bottom: 2px solid rgba(0, 243, 255, 0.5);
+    padding-bottom: 5px;
+}
+
+.holographic-projection p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #fff;
+    margin: 0;
+    text-shadow: 0 0 2px black;
+}
+
+/* Removed scanner line as requested */
+
+/* Page Title */
+.page-title {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--neon-blue);
+    text-shadow: 0 0 20px var(--neon-blue), 0 0 40px rgba(31, 162, 255, 0.4);
+    letter-spacing: 8px;
+    z-index: 50;
+    pointer-events: none;
+    text-transform: uppercase;
+    opacity: 0.9;
+    border-left: 5px solid var(--neon-cyan);
+    padding-left: 20px;
+}
